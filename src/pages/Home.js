@@ -9,14 +9,14 @@ import { getPodcastImage, getPodcasts } from './home_helpers';
 
 const Home = () => {
 	const [ podcasts, setPodcasts ] = useState(null);
-	const { getData, checkTimeStorage } = useLocalStorage();
+	const { getData, checkTimeStorage, savePodcastsToLocalStorage } = useLocalStorage();
 
 	useEffect(() => {
 		const storedPodcasts = getData().podcasts;
 		const noStoredPodcasts = !storedPodcasts?.data;
 		const expiredDate = checkTimeStorage(storedPodcasts?.expDate);
 
-		(noStoredPodcasts || expiredDate) ? getPodcasts(setPodcasts) : setPodcasts(storedPodcasts.data);
+		(noStoredPodcasts || expiredDate) ? getPodcasts(setPodcasts, savePodcastsToLocalStorage) : setPodcasts(storedPodcasts.data);
 	}, []);
 
 	return (

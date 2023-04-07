@@ -3,13 +3,7 @@ const useLocalStorage = () => {
 
 	const getData = () => {
 		const storedPodcasts = localStorage.getItem('data');
-		if (storedPodcasts) {
-			return JSON.parse(storedPodcasts);
-		} else {
-			return {
-				podcasts: {}
-			};
-		}
+		return storedPodcasts ? JSON.parse(storedPodcasts) : { podcasts: {} };
 	};
 
 	const getExpirationDate = () => {
@@ -20,23 +14,15 @@ const useLocalStorage = () => {
 		return tomorrow.toString();
 	};
 
-	const savePodcastsToLocalStorage = (podcasts, data, page) => {
-		let localPodcasts = getData();
-
+	const savePodcastsToLocalStorage = podcasts => {
 		const podcastsInfo = {
 			podcasts: {
 				expDate: getExpirationDate(),
-				nextPage: page,
-				data: [ ...podcasts, ...data.results ]
+				data: podcasts
 			}
 		};
 
-		localPodcasts = {
-			...localPodcasts,
-			...podcastsInfo
-		};
-
-		localStorage.setItem('data', JSON.stringify(localPodcasts));
+		localStorage.setItem('data', JSON.stringify(podcastsInfo));
 	};
 
 	const checkTimeStorage = date => {
