@@ -1,0 +1,36 @@
+@import '../../styles/index.scss';
+
+.card-container {
+    @include flex(column, flex-end, baseline);
+    width: 20%;
+    margin: 1.5rem 1rem;
+    min-height: 200px;
+}
+
+.card-details-container {
+    @include flex(column, flex-start);
+    position: relative;
+    width: 100%;
+    box-shadow: -2px 3px 5px 0px rgba(0,0,0,0.3);
+    min-height: 100px;
+    padding: 55px 10px 5px;
+    text-align: center;
+}
+
+.card-image {
+    position: absolute;
+    top: -50px;
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+}
+
+.card-title {
+    font-size: 1rem;
+    text-transform: uppercase;
+    padding-bottom: 1rem;
+}
+
+.card-author {
+    color: $inactive-color;
+}

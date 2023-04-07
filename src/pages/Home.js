@@ -3,7 +3,7 @@ import './home.scss';
 
 import React, { useEffect, useState } from 'react';
 
-import PodcastCard from '../components/PodcastCard';
+import PodcastCard from '../components/PodcastCard/PodcastCard';
 import useLocalStorage from '../hooks/useLocalStorage';
 import { getPodcastImage, getPodcasts } from './home_helpers';
 
@@ -20,17 +20,20 @@ const Home = () => {
 	}, []);
 
 	return (
-		<div>
+		<div >
 			<h2 className="home-title">Podcaster</h2>
-			{podcasts?.map(podcast => (
-				<PodcastCard
-					key={podcast.id.attributes['im:id']}
-					id={podcast.id.attributes['im:id']}
-					title={podcast['im:name'].label}
-					image={getPodcastImage(podcast['im:image'])}
-					author={podcast['im:artist'].label}
-				/>
-			))}
+			<div className="home-podcasts-container">
+				{podcasts?.map(podcast => (
+					<PodcastCard
+						key={podcast.id.attributes['im:id']}
+						id={podcast.id.attributes['im:id']}
+						title={podcast['im:name'].label}
+						image={getPodcastImage(podcast['im:image'])}
+						author={podcast['im:artist'].label}
+					/>
+				))}
+			</div>
+
 		</div>
 	);
 };

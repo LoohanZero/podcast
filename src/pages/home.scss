@@ -4,5 +4,11 @@
     color: $secondary-color;
     font-size: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid #F0F0F0;
+    border-bottom: 1px solid $inactive-color;
 };
+
+.home-podcasts-container {
+    @include flex();
+    flex-wrap: wrap;
+    padding-top: 30px;
+}
