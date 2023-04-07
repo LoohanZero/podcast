@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 import axios from 'axios';
 
+const SIZE_IMAGE = 170;
+
 /**
 * @param {Function} setPodcasts function that sets podcasts variable state
 * @return {void}
@@ -15,4 +17,12 @@ const getPodcasts = async setPodcasts => {
 	}
 };
 
-export { getPodcasts };
+/**
+* @param {Function} setPodcasts function that sets podcasts variable state
+* @return {void}
+*/
+const getPodcastImage = images => {
+	return images.filter(image => image.attributes.height === SIZE_IMAGE);
+};
+
+export { getPodcastImage, getPodcasts };
