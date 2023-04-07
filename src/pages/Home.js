@@ -24,9 +24,11 @@ const Home = () => {
 			<h2 className="home-title">Podcaster</h2>
 			{podcasts?.map(podcast => (
 				<PodcastCard
-					key={podcast.id}
+					key={podcast.id.attributes['im:id']}
+					id={podcast.id.attributes['im:id']}
 					title={podcast['im:name'].label}
 					image={getPodcastImage(podcast['im:image'])}
+					author={podcast['im:artist'].label}
 				/>
 			))}
 		</div>

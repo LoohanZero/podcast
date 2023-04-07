@@ -9,7 +9,7 @@ const SIZE_IMAGE = 170;
 */
 const getPodcasts = async setPodcasts => {
 	try {
-		const response = axios.get('https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json');
+		const response = await axios.get('https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json');
 		const data = response.data.feed.entry;
 		setPodcasts(data);
 	} catch (error) {
@@ -18,11 +18,13 @@ const getPodcasts = async setPodcasts => {
 };
 
 /**
-* @param {Function} setPodcasts function that sets podcasts variable state
-* @return {void}
+* Returns string with image url
+* @param {Array} images array with images
+* @return {String}
 */
 const getPodcastImage = images => {
-	return images.filter(image => image.attributes.height === SIZE_IMAGE);
+	const imageObject = images.filter(image => Number(image.attributes.height) === SIZE_IMAGE)[0];
+	return imageObject.label;
 };
 
 export { getPodcastImage, getPodcasts };
