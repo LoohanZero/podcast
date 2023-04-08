@@ -21,7 +21,7 @@ const initialState = {
 * Returns Object with new state
 * @param {Object} state Component state object
 * @param {Object} action Object with type of action and payload
-* @return {Object}
+* @returns {Object}
 */
 const podcastsReducer = (state, action) => {
 	const { type, payload } = action;
@@ -42,7 +42,7 @@ const podcastsReducer = (state, action) => {
 * @param {Boolean} isLoading podcasts loading flag
 * @param {Function} dispatchPodcastsState function that sets podcasts variable state
 * @param {Function} savePodcastsToLocalStorage function that saves podcasts to local storage
-* @return {VoidFunction}
+* @returns {VoidFunction}
 */
 const getPodcasts = async (isLoading, dispatchPodcastsState, savePodcastsToLocalStorage) => {
 	dispatchPodcastsState({ type: ACTIONS.TOGGLE_IS_LOADING });
@@ -61,7 +61,7 @@ const getPodcasts = async (isLoading, dispatchPodcastsState, savePodcastsToLocal
 /**
 * Returns string with image url
 * @param {Array} images array with images
-* @return {String}
+* @returns {String}
 */
 const getPodcastImage = images => {
 	const imageObject = images.filter(image => Number(image.attributes.height) === SIZE_IMAGE)[0];
@@ -72,7 +72,7 @@ const getPodcastImage = images => {
 * Returns object that matchs search criteria
 * @param {Object} podcast Object with podcast information
 * @param {String} searchValue String with search value
-* @return {Object}
+* @returns {Object}
 */
 const filterPodcast = (podcast, searchValue) => {
 	const searchableInfo = podcast['im:name'].label + ' ' + podcast['im:artist'].label;

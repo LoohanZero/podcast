@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
 import './home.scss';
 
@@ -16,7 +15,6 @@ const Home = () => {
 
 	useEffect(() => {
 		const storedPodcasts = getData();
-		console.log(storedPodcasts);
 		!storedPodcasts
 			? getPodcasts(isLoading, dispatchPodcastsState, savePodcastsToLocalStorage)
 			: dispatchPodcastsState({ type: ACTIONS.SET_PODCASTS, payload: storedPodcasts });
