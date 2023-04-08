@@ -6,6 +6,7 @@ import { ClipLoader } from 'react-spinners';
 
 import Home from './pages/home/Home';
 import Podcast from './pages/podcast/Podcast';
+import PodcastLayout from './pages/poscastLayout/PodcastLayout';
 
 function App () {
 	const [ isLoading, setIsLoading ] = useState(false);
@@ -22,7 +23,13 @@ function App () {
 				<main>
 					<Routes>
 						<Route path="/" element={<Home isLoading={isLoading} setIsLoading={setIsLoading}/>} />
-						<Route path="/podcast/:id" element={<Podcast isLoading={isLoading} setIsLoading={setIsLoading}/>} />
+						<Route
+							path="/podcast"
+							element={<PodcastLayout isLoading={isLoading} setIsLoading={setIsLoading} />}
+						>
+							<Route path=":id" element={<Podcast />} />
+							<Route path=":id/episode/:episodeId" element={<h2>Episode</h2>} />
+						</Route>
 					</Routes>
 				</main>
 			</BrowserRouter>

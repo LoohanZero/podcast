@@ -40,6 +40,18 @@ const useLocalStorage = () => {
 	};
 
 	/**
+	* Returns array of podcasts if there's any saved in the local storage, otherwise returns undefined
+	* @returns {Array | undefined}
+	*/
+	const getDataById = id => {
+		const storedPodcasts = localStorage.getItem('data');
+		const parsedPodcasts = JSON.parse(storedPodcasts);
+		const podcast = parsedPodcasts.podcasts.filter(podcast => podcast.id.attributes['im:id'] === id);
+
+		return storedPodcasts && podcast[0];
+	};
+
+	/**
 	* Saves array of podcasts and expiration date in localstorage
 	* @param {Array} podcasts array with podcasts objects
 	* @returns {VoidFunction}
@@ -54,6 +66,7 @@ const useLocalStorage = () => {
 
 	return {
 		getData,
+		getDataById,
 		checkTimeStorage,
 		savePodcastsToLocalStorage
 	};

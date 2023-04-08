@@ -7,14 +7,14 @@ import axios from 'axios';
 * @param {Function} savePodcastsToLocalStorage function that saves podcasts to local storage
 * @returns {VoidFunction}
 */
-const getPodcastById = async (id, setPodcast, setIsLoading) => {
+const getPodcastById = async (id, podcast, setPodcast, setIsLoading) => {
 	setIsLoading(true);
 
 	try {
 		const response = await axios.get(`https://itunes.apple.com/lookup?id=${id}`);
 		const data = response.data.results[0];
 		console.log(data);
-		setPodcast(data);
+		setPodcast({ ...podcast, ...data });
 	} catch (error) {
 		console.log(error);
 	} finally {
