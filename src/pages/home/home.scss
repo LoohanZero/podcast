@@ -1,0 +1,40 @@
+@import '../../styles/index.scss';
+
+.home-search-container {
+    @include flex(row, flex-end);
+    margin-bottom: 1rem;
+}
+
+.home-search-amount {
+    @include flex();
+    background-color: $secondary-color;
+    color: $primary-color;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-right: 0.5rem;
+    height: 35px;
+    width: 45px;
+    box-sizing: border-box;
+}
+
+.home-search-input {
+    @include flex();
+    border-radius: 5px;
+    border: 1px solid $terciary-color;
+    min-width: 25%;
+    height: 35px;
+    width: 40px;
+    padding-left: 7px;
+    box-sizing: border-box;
+}
+
+.home-podcasts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-rows: min-content;
+    gap: 3.5rem 1rem;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-top: 30px;
+    min-height: calc(100vh - 30px);
+}
