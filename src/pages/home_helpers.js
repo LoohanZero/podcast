@@ -30,7 +30,7 @@ const podcastsReducer = (state, action) => {
 			case ACTIONS.SET_PODCASTS:
 				return { ...state, podcasts: payload };
 			case ACTIONS.TOGGLE_IS_LOADING:
-				return { ...state, isLoading: true };
+				return { ...state, isLoading: false };
 			case ACTIONS.SET_SEARCH_VALUE:
 				return { ...state, searchValue: payload };
 			default:
@@ -76,7 +76,6 @@ const getPodcastImage = images => {
 */
 const filterPodcast = (podcast, searchValue) => {
 	const searchableInfo = podcast['im:name'].label + ' ' + podcast['im:artist'].label;
-
 	try {
 		const regexp = new RegExp(searchValue, 'i');
 		return regexp.test(searchableInfo);
