@@ -1,14 +1,18 @@
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import './home.scss';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
+import { PacmanLoader } from 'react-spinners';
 
 import PodcastCard from '../components/PodcastCard/PodcastCard';
 import useLocalStorage from '../hooks/useLocalStorage';
-import { getPodcastImage, getPodcasts } from './home_helpers';
+import { ACTIONS, getPodcastImage, getPodcasts, initialState, podcastsReducer } from './home_helpers';
 
 const Home = () => {
-	const [ podcasts, setPodcasts ] = useState(null);
+	const [ podcastsState, dispatchPodcastsState ] = useReducer(podcastsReducer, initialState);
+	const { isLoading, podcasts, searchValue } = podcastsState;
 	const { getData, checkTimeStorage, savePodcastsToLocalStorage } = useLocalStorage();
 
 	useEffect(() => {
@@ -16,14 +20,22 @@ const Home = () => {
 		const noStoredPodcasts = !storedPodcasts?.data;
 		const expiredDate = checkTimeStorage(storedPodcasts?.expDate);
 
-		(noStoredPodcasts || expiredDate) ? getPodcasts(setPodcasts, savePodcastsToLocalStorage) : setPodcasts(storedPodcasts.data);
+		(noStoredPodcasts || expiredDate)
+			? getPodcasts(isLoading, dispatchPodcastsState, savePodcastsToLocalStorage)
+			: dispatchPodcastsState({ type: ACTIONS.SET_PODCASTS, payload: storedPodcasts.data });
 	}, []);
 
 	return (
-		<div >
-			<h2 className="home-title">Podcaster</h2>
+		<div>
+			<div className="home-search-container">
+				<input
+					type="text"
+					value={searchValue}
+					onChange={event => dispatchPodcastsState({ type: ACTIONS.SET_SEARCH_VALUE, payload: event.target.value })}
+				/>
+			</div>
 			<div className="home-podcasts-container">
-				{podcasts?.map(podcast => (
+				{!isLoading && podcasts?.map(podcast => (
 					<PodcastCard
 						key={podcast.id.attributes['im:id']}
 						id={podcast.id.attributes['im:id']}
@@ -32,6 +44,7 @@ const Home = () => {
 						author={podcast['im:artist'].label}
 					/>
 				))}
+				{isLoading && <PacmanLoader color="#2877bd" />}
 			</div>
 
 		</div>
