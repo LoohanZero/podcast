@@ -3,25 +3,25 @@ import './home.scss';
 
 import React, { useEffect, useState } from 'react';
 
+import { ACTIONS } from '../../app_helpers';
 import PodcastCard from '../../components/podcastCards/PodcastCard';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { filterPodcast, getPodcastImage, getPodcasts } from './home_helpers';
 
-const Home = ({ isLoading, setIsLoading }) => {
+const Home = ({ isLoading, dispatchIsLoading }) => {
 	const [ podcasts, setPodcasts ] = useState(null);
 	const [ searchValue, setSearchValue ] = useState('');
 	const { getData, savePodcastsToLocalStorage } = useLocalStorage();
 
 	useEffect(() => {
-		const storedPodcasts = getData(setIsLoading);
+		const storedPodcasts = getData(dispatchIsLoading);
 		if (storedPodcasts) {
 			setPodcasts(storedPodcasts);
-			setIsLoading(false);
+			dispatchIsLoading({ type: ACTIONS.SET_LOADING_LOCAL_STORAGE, payload: false });
 		} else {
-			getPodcasts(setIsLoading, setPodcasts, savePodcastsToLocalStorage);
+			getPodcasts(dispatchIsLoading, setPodcasts, savePodcastsToLocalStorage);
 		}
 	}, []);
-
 	return (
 		<div>
 			<div className="home-search-container">

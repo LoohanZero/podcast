@@ -1,18 +1,20 @@
 /* eslint-disable no-console */
 import axios from 'axios';
 
+import { ACTIONS } from '../../app_helpers';
+
 // ----------------------- VARIABLES --------------------------------
 const SIZE_IMAGE = 170;
 
 // ----------------------- FUNCTIONS --------------------------------
 /**
-* @param {Boolean} isLoading podcasts loading flag
-* @param {Function} dispatchPodcastsState function that sets podcasts variable state
+* @param {Function} dispatchIsLoading podcasts loading flag
+* @param {Function} setPodcasts function that sets podcasts variable state
 * @param {Function} savePodcastsToLocalStorage function that saves podcasts to local storage
 * @returns {VoidFunction}
 */
-const getPodcasts = async (setIsLoading, setPodcasts, savePodcastsToLocalStorage) => {
-	setIsLoading(true);
+const getPodcasts = async (dispatchIsLoading, setPodcasts, savePodcastsToLocalStorage) => {
+	dispatchIsLoading({ type: ACTIONS.SET_LOADING_BACKEND_CALL, payload: true });
 	try {
 		const response = await axios.get('https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json');
 		const data = response.data.feed.entry;
@@ -21,7 +23,7 @@ const getPodcasts = async (setIsLoading, setPodcasts, savePodcastsToLocalStorage
 	} catch (error) {
 		console.log(error);
 	} finally {
-		setIsLoading(false);
+		dispatchIsLoading({ type: ACTIONS.SET_LOADING_BACKEND_CALL, payload: false });
 	}
 };
 

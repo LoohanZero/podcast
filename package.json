@@ -12,9 +12,10 @@
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
     "react-spinners": "^0.13.8",
+    "react-xml-parser": "^1.1.8",
     "sass": "^1.61.0",
     "sass-loader": "^13.2.2",
-    "web-vitals": "^2.1.4"
+    "simple-xml-to-json": "^1.0.9"
   },
   "scripts": {
     "start": "react-scripts start",

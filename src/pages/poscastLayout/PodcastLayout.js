@@ -1,4 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import './podcastLayout.scss';
+
 import React, { useEffect, useState } from 'react';
 import { Outlet, useParams } from 'react-router-dom';
 
@@ -6,7 +8,7 @@ import Aside from '../../components/aside/Aside';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { getPodcastById } from './podcastLayout_helpers';
 
-const PodcastLayout = ({ isLoading, setIsLoading }) => {
+const PodcastLayout = ({ isLoading, dispatchIsLoading }) => {
 	const { id } = useParams();
 	const [ podcast, setPodcast ] = useState(null);
 	const [ localPodcast, setLocalPodcast ] = useState(null);
@@ -14,7 +16,7 @@ const PodcastLayout = ({ isLoading, setIsLoading }) => {
 
 	useEffect(() => {
 		if (id) {
-			getPodcastById(id, podcast, setPodcast, setIsLoading);
+			getPodcastById(id, podcast, setPodcast, dispatchIsLoading);
 			const morePodcastInfo = getDataById(id);
 			setLocalPodcast(morePodcastInfo);
 		}
@@ -28,7 +30,7 @@ const PodcastLayout = ({ isLoading, setIsLoading }) => {
 				name={podcast.collectionName}
 				description={localPodcast.summary.label}
 			/>}
-			<Outlet />
+			<Outlet context={{ url: podcast?.feedUrl, dispatchIsLoading }} />
 		</div>
 	);
 };

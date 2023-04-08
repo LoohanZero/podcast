@@ -1,15 +1,18 @@
 import './app.scss';
 
-import { useState } from 'react';
+import { useReducer } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 
+import { initialState, loadingReducer } from './app_helpers';
 import Home from './pages/home/Home';
 import Podcast from './pages/podcast/Podcast';
 import PodcastLayout from './pages/poscastLayout/PodcastLayout';
 
 function App () {
-	const [ isLoading, setIsLoading ] = useState(false);
+	const [ isLoading, dispatchIsLoading ] = useReducer(loadingReducer, initialState);
+	const { isLoadingParser, isLoadingBackendCall, isLoadingLocalStorage } = isLoading;
+	const somethingIsLoading = isLoadingParser || isLoadingBackendCall || isLoadingLocalStorage;
 
 	return (
 		<div className="app-container">
@@ -18,14 +21,14 @@ function App () {
 					<Link to="/">
 						<h1 className="app-title">Podcaster</h1>
 					</Link>
-					{isLoading && <ClipLoader color="#2877bd" size={25}/>}
+					{somethingIsLoading && <ClipLoader color="#2877bd" size={25}/>}
 				</header>
 				<main>
 					<Routes>
-						<Route path="/" element={<Home isLoading={isLoading} setIsLoading={setIsLoading}/>} />
+						<Route path="/" element={<Home isLoading={somethingIsLoading} dispatchIsLoading={dispatchIsLoading}/>} />
 						<Route
 							path="/podcast"
-							element={<PodcastLayout isLoading={isLoading} setIsLoading={setIsLoading} />}
+							element={<PodcastLayout isLoading={somethingIsLoading} dispatchIsLoading={dispatchIsLoading} />}
 						>
 							<Route path=":id" element={<Podcast />} />
 							<Route path=":id/episode/:episodeId" element={<h2>Episode</h2>} />

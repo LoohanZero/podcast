@@ -17,7 +17,3 @@
     font-size: 1rem;
     width: fit-content;
 };
-
-.podcast-layout {
-    @include flex(row, space-between);
-}

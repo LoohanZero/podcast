@@ -1,3 +1,5 @@
+import { ACTIONS } from '../app_helpers';
+
 const useLocalStorage = () => {
 	const localStorage = window.localStorage;
 
@@ -30,8 +32,8 @@ const useLocalStorage = () => {
 	* Returns array of podcasts if there's any saved in the local storage, otherwise returns undefined
 	* @returns {Array | undefined}
 	*/
-	const getData = setIsLoading => {
-		setIsLoading(true);
+	const getData = dispatchIsLoading => {
+		dispatchIsLoading({ type: ACTIONS.SET_LOADING_LOCAL_STORAGE, payload: true });
 		const storedPodcasts = localStorage.getItem('data');
 		const parsedPodcasts = JSON.parse(storedPodcasts);
 		const expiredDate = checkTimeStorage(parsedPodcasts?.expDate);

@@ -9,7 +9,7 @@
 .card-details-container {
     @include flex(column, flex-start);
     position: relative;
-    box-shadow: -2px 3px 5px 0px rgba(0,0,0,0.3);
+    box-shadow: $default-box-shadow;
     min-height: 140px;
     width: 100%;
     padding: 55px 10px 5px;
