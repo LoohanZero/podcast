@@ -2,19 +2,19 @@
 
 .card-container {
     @include flex(column, flex-end, baseline);
-    width: 20%;
-    margin: 1.5rem;
     min-height: 200px;
+    width: 100%;
 }
 
 .card-details-container {
     @include flex(column, flex-start);
     position: relative;
-    width: 100%;
     box-shadow: -2px 3px 5px 0px rgba(0,0,0,0.3);
-    min-height: 100px;
+    min-height: 140px;
+    width: 100%;
     padding: 55px 10px 5px;
     text-align: center;
+    box-sizing: border-box;
 }
 
 .card-image {
@@ -32,5 +32,5 @@
 }
 
 .card-author {
-    color: $inactive-color;
+    color: $terciary-color;
 }

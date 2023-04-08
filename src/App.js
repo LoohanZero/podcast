@@ -6,7 +6,7 @@ import Home from './pages/Home';
 
 function App () {
 	return (
-		<>
+		<div className="app-container">
 			<header>
 				<h1 className="app-title">Podcaster</h1>
 			</header>
@@ -17,7 +17,7 @@ function App () {
 					</Routes>
 				</main>
 			</BrowserRouter>
-		</>
+		</div>
 	);
 }
 

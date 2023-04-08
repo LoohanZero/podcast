@@ -28,9 +28,14 @@ const Home = () => {
 	return (
 		<div>
 			<div className="home-search-container">
+				<p className="home-search-amount">
+					{podcasts?.filter(podcast => filterPodcast(podcast, searchValue)).length}
+				</p>
 				<input
+					className="home-search-input"
 					type="text"
 					value={searchValue}
+					placeholder="Filter podcasts..."
 					onChange={event => dispatchPodcastsState({ type: ACTIONS.SET_SEARCH_VALUE, payload: event.target.value })}
 				/>
 			</div>
