@@ -13,7 +13,7 @@ function App () {
 	const [ isLoading, dispatchIsLoading ] = useReducer(loadingReducer, initialState);
 	const { isLoadingParser, isLoadingBackendCall, isLoadingLocalStorage } = isLoading;
 	const somethingIsLoading = isLoadingParser || isLoadingBackendCall || isLoadingLocalStorage;
-
+	console.log(isLoadingParser, isLoadingBackendCall, isLoadingLocalStorage)
 	return (
 		<div className="app-container">
 			<BrowserRouter>
