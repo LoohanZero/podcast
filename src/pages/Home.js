@@ -8,7 +8,7 @@ import { PacmanLoader } from 'react-spinners';
 
 import PodcastCard from '../components/PodcastCard/PodcastCard';
 import useLocalStorage from '../hooks/useLocalStorage';
-import { ACTIONS, getPodcastImage, getPodcasts, initialState, podcastsReducer } from './home_helpers';
+import { ACTIONS, filterPodcast, getPodcastImage, getPodcasts, initialState, podcastsReducer } from './home_helpers';
 
 const Home = () => {
 	const [ podcastsState, dispatchPodcastsState ] = useReducer(podcastsReducer, initialState);
@@ -35,7 +35,7 @@ const Home = () => {
 				/>
 			</div>
 			<div className="home-podcasts-container">
-				{!isLoading && podcasts?.map(podcast => (
+				{!isLoading && podcasts?.filter(podcast => filterPodcast(podcast, searchValue)).map(podcast => (
 					<PodcastCard
 						key={podcast.id.attributes['im:id']}
 						id={podcast.id.attributes['im:id']}

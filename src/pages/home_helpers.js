@@ -18,9 +18,10 @@ const initialState = {
 
 // ----------------------- FUNCTIONS --------------------------------
 /**
+* Returns Object with new state
 * @param {Object} state Component state object
 * @param {Object} action Object with type of action and payload
-* @return {void}
+* @return {Object}
 */
 const podcastsReducer = (state, action) => {
 	const { type, payload } = action;
@@ -38,10 +39,10 @@ const podcastsReducer = (state, action) => {
 };
 
 /**
-* @param {bool} isLoading podcasts loading flag
+* @param {Boolean} isLoading podcasts loading flag
 * @param {Function} dispatchPodcastsState function that sets podcasts variable state
 * @param {Function} savePodcastsToLocalStorage function that saves podcasts to local storage
-* @return {void}
+* @return {VoidFunction}
 */
 const getPodcasts = async (isLoading, dispatchPodcastsState, savePodcastsToLocalStorage) => {
 	dispatchPodcastsState({ type: ACTIONS.TOGGLE_IS_LOADING });
@@ -67,4 +68,22 @@ const getPodcastImage = images => {
 	return imageObject.label;
 };
 
-export { ACTIONS, getPodcastImage, getPodcasts, initialState, podcastsReducer };
+/**
+* Returns object that matchs search criteria
+* @param {Object} podcast Object with podcast information
+* @param {String} searchValue String with search value
+* @return {Object}
+*/
+const filterPodcast = (podcast, searchValue) => {
+	const searchableInfo = podcast['im:name'].label + ' ' + podcast['im:artist'].label;
+
+	try {
+		const regexp = new RegExp(searchValue, 'i');
+		return regexp.test(searchableInfo);
+	} catch (error) {
+		console.log(error);
+		return false;
+	}
+};
+
+export { ACTIONS, filterPodcast, getPodcastImage, getPodcasts, initialState, podcastsReducer };
