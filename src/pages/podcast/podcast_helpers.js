@@ -14,7 +14,7 @@ const getPodcastById = async (id, setPodcast, setIsLoading) => {
 		const response = await axios.get(`https://itunes.apple.com/lookup?id=${id}`);
 		const data = response.data.results[0];
 		console.log(data);
-		// dispatchPodcastsState({ type: ACTIONS.SET_PODCASTS, payload: data });
+		setPodcast(data);
 	} catch (error) {
 		console.log(error);
 	} finally {

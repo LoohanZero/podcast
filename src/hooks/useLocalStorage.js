@@ -30,7 +30,8 @@ const useLocalStorage = () => {
 	* Returns array of podcasts if there's any saved in the local storage, otherwise returns undefined
 	* @returns {Array | undefined}
 	*/
-	const getData = () => {
+	const getData = setIsLoading => {
+		setIsLoading(true);
 		const storedPodcasts = localStorage.getItem('data');
 		const parsedPodcasts = JSON.parse(storedPodcasts);
 		const expiredDate = checkTimeStorage(parsedPodcasts?.expDate);

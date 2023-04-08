@@ -17,7 +17,7 @@ function App () {
 					<Link to="/">
 						<h1 className="app-title">Podcaster</h1>
 					</Link>
-					<ClipLoader color="#2877bd" size={25}/>
+					{isLoading && <ClipLoader color="#2877bd" size={25}/>}
 				</header>
 				<main>
 					<Routes>

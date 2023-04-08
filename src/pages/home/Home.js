@@ -1,23 +1,25 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import './home.scss';
 
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import Loader from '../../components/loader/Loader';
 import PodcastCard from '../../components/podcastCards/PodcastCard';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import { ACTIONS, filterPodcast, getPodcastImage, getPodcasts, initialState, podcastsReducer } from './home_helpers';
+import { filterPodcast, getPodcastImage, getPodcasts } from './home_helpers';
 
-const Home = () => {
-	const [ podcastsState, dispatchPodcastsState ] = useReducer(podcastsReducer, initialState);
-	const { isLoading, podcasts, searchValue } = podcastsState;
+const Home = ({ isLoading, setIsLoading }) => {
+	const [ podcasts, setPodcasts ] = useState(null);
+	const [ searchValue, setSearchValue ] = useState('');
 	const { getData, savePodcastsToLocalStorage } = useLocalStorage();
 
 	useEffect(() => {
-		const storedPodcasts = getData();
-		!storedPodcasts
-			? getPodcasts(isLoading, dispatchPodcastsState, savePodcastsToLocalStorage)
-			: dispatchPodcastsState({ type: ACTIONS.SET_PODCASTS, payload: storedPodcasts });
+		const storedPodcasts = getData(setIsLoading);
+		if (storedPodcasts) {
+			setPodcasts(storedPodcasts);
+			setIsLoading(false);
+		} else {
+			getPodcasts(setIsLoading, setPodcasts, savePodcastsToLocalStorage);
+		}
 	}, []);
 
 	return (
@@ -31,7 +33,7 @@ const Home = () => {
 					type="text"
 					value={searchValue}
 					placeholder="Filter podcasts..."
-					onChange={event => dispatchPodcastsState({ type: ACTIONS.SET_SEARCH_VALUE, payload: event.target.value })}
+					onChange={event => setSearchValue(event.target.value)}
 				/>
 			</div>
 			<div className="home-podcasts-container">
@@ -45,7 +47,6 @@ const Home = () => {
 					/>
 				))}
 			</div>
-			{isLoading && <Loader />}
 		</div>
 	);
 };
