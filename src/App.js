@@ -2,7 +2,7 @@ import './app.scss';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import Home from './pages/Home';
+import Home from './pages/home/Home';
 
 function App () {
 	return (

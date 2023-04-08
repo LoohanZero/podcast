@@ -3,9 +3,9 @@ import './home.scss';
 
 import React, { useEffect, useReducer } from 'react';
 
-import Loader from '../components/loader/Loader';
-import PodcastCard from '../components/podcastCards/PodcastCard';
-import useLocalStorage from '../hooks/useLocalStorage';
+import Loader from '../../components/loader/Loader';
+import PodcastCard from '../../components/podcastCards/PodcastCard';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import { ACTIONS, filterPodcast, getPodcastImage, getPodcasts, initialState, podcastsReducer } from './home_helpers';
 
 const Home = () => {
