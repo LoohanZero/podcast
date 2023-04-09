@@ -5,15 +5,20 @@ import React, { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 
 import EpisodeCard from '../../components/episodeCard/EpisodeCard';
+import useLocalStorage from '../../hooks/useLocalStorage';
 import { getPodcastByUrl } from './podcast_helpers';
 
 const Podcast = () => {
-	const { url, dispatchIsLoading } = useOutletContext();
+	const { id, url, dispatchIsLoading } = useOutletContext();
 	const [ episodeList, setEpisodeList ] = useState(null);
+	const { getDataById, saveDataByIdToLocalStorage } = useLocalStorage();
 
 	useEffect(() => {
-		if (url) {
-			getPodcastByUrl(url, setEpisodeList, dispatchIsLoading);
+		const localPodcast = getDataById(id);
+
+		if (!localPodcast?.episodes) {
+			const availableUrl = url || localPodcast?.feedUrl;
+			getPodcastByUrl(availableUrl, localPodcast, setEpisodeList, dispatchIsLoading, saveDataByIdToLocalStorage);
 		}
 	}, [ url ]);
 
