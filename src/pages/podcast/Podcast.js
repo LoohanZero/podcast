@@ -19,9 +19,10 @@ const Podcast = () => {
 		if (!localPodcast?.episodes) {
 			const availableUrl = url || localPodcast?.feedUrl;
 			getPodcastByUrl(id, availableUrl, localPodcast, setEpisodeList, dispatchIsLoading, saveDataByIdToLocalStorage);
+		} else {
+			setEpisodeList(localPodcast.episodes);
 		}
 	}, [ url ]);
-
 	return (
 		<div className="podcast-episodes-container">
 			{!isLoading && episodeList && (

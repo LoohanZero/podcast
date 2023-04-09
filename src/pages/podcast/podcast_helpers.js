@@ -3,9 +3,12 @@ import axios from 'axios';
 
 import { ACTIONS } from '../../app_helpers';
 
+const getFormattedValue = value => {
+	return value?.trim().replace(/^(\/\/\s*)?<!\[CDATA\[|(\/\/\s*)?\]\]>$/g, '');
+};
 const formatDataToObject = (episodeList, episode) => {
 	const episodeArray = [ ...episode ];
-	const objectEpisode = episodeArray.reduce((accum, value) => ({ ...accum, [value.localName || value.nodeName]: value.innerHTML }), {});
+	const objectEpisode = episodeArray.reduce((accum, value) => ({ ...accum, [value.localName || value.nodeName]: getFormattedValue(value.innerHTML) }), {});
 	return [ ...episodeList, objectEpisode ];
 };
 

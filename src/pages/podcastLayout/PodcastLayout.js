@@ -22,14 +22,18 @@ const PodcastLayout = ({ isLoading, dispatchIsLoading }) => {
 
 	return (
 		<div className="podcast-layout">
-			{!isLoading && podcast && <Aside
-				author={podcast.artistName}
-				id={id}
-				image={podcast.artworkUrl600}
-				name={podcast.collectionName}
-				description={podcast.summary?.label}
-			/>}
-			<Outlet context={{ url: podcast?.feedUrl, dispatchIsLoading, id, isLoading }} />
+			{!isLoading && podcast &&
+			<>
+				<Aside
+					author={podcast.artistName}
+					id={id}
+					image={podcast.artworkUrl600}
+					name={podcast.collectionName}
+					description={podcast.summary?.label}
+				/>
+				<Outlet context={{ url: podcast?.feedUrl, dispatchIsLoading, id, isLoading }} />
+			</>}
+
 		</div>
 	);
 };
