@@ -9,7 +9,7 @@ import useLocalStorage from '../../hooks/useLocalStorage';
 import { getPodcastByUrl } from './podcast_helpers';
 
 const Podcast = () => {
-	const { id, url, dispatchIsLoading } = useOutletContext();
+	const { id, isLoading, url, dispatchIsLoading } = useOutletContext();
 	const [ episodeList, setEpisodeList ] = useState(null);
 	const { getDataById, saveDataByIdToLocalStorage } = useLocalStorage();
 
@@ -24,11 +24,12 @@ const Podcast = () => {
 
 	return (
 		<div className="podcast-episodes-container">
-			{episodeList && (
+			{!isLoading && episodeList && (
 				<>
 					<h3 className="podcast-episodes-amount">
 						Episodes: {episodeList.length}
 					</h3>
+					{episodeList.length > 0 &&
 					<table className="podcast-episodes-table">
 						<thead className="podcast-episodes-head">
 							<tr>
@@ -44,11 +45,11 @@ const Podcast = () => {
 									key={episode.guid}
 									id={episode.guid}
 									title={episode.title}
-									duration={episode['itunes:duration']}
+									duration={episode.duration}
 									date={episode.pubDate}
 								/>))}
 						</tbody>
-					</table>
+					</table>}
 				</>)}
 		</div>);
 };

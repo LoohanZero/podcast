@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 import axios from 'axios';
-import XMLParser from 'react-xml-parser';
 
 import { ACTIONS } from '../../app_helpers';
 
 const formatDataToObject = (episodeList, episode) => {
-	const formattedEpisode = episode.reduce((accum, value) => ({ ...accum, [value.name]: value.value }), {});
-	return [ ...episodeList, formattedEpisode ];
+	const episodeArray = [ ...episode ];
+	const objectEpisode = episodeArray.reduce((accum, value) => ({ ...accum, [value.localName]: value.innerHTML }));
+	return [ ...episodeList, objectEpisode ];
 };
 
 /**
@@ -19,11 +19,13 @@ const getPodcastByUrl = async (url, localPodcastInfo, setEpisodeList, dispatchIs
 	dispatchIsLoading({ type: ACTIONS.SET_LOADING_PARSER, payload: true });
 	try {
 		const response = await axios.get(`https://api.allorigins.win/raw?url=${url}`, { 'Content-Type': 'application/xml; charset=utf-8' });
-		const parsedData = new XMLParser().parseFromString(response.data);
-		const data = parsedData.children[0].children;
-		const episodeList = data.filter(podcast => podcast.name === 'item').map(episode => episode.children).reduce(formatDataToObject, []);
-		const mergedPodcast = { ...localPodcastInfo, episodes: episodeList };
-		setEpisodeList(episodeList);
+		const parser = new DOMParser();
+		const xml = parser.parseFromString(response.data, 'text/xml');
+		const dataHttp = xml.getElementsByTagName('item');
+		const arrayData = [ ...dataHttp ];
+		const formattedEpisodeList = arrayData.map(item => item.children).reduce(formatDataToObject, []);
+		const mergedPodcast = { ...localPodcastInfo, episodes: formattedEpisodeList };
+		setEpisodeList(formattedEpisodeList);
 		saveDataByIdToLocalStorage(mergedPodcast);
 	} catch (error) {
 		console.log(error);
