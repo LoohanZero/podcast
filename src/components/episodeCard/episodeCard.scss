@@ -1,0 +1,17 @@
+@import '../../styles//index.scss';
+
+.table-oddrow-background {
+    background-color: #f9f9f9;
+}
+
+.episode-link {
+    color: $secondary-color;
+}
+
+td {
+    text-align: center;
+}
+
+td:first-child {
+    text-align: left;
+}
