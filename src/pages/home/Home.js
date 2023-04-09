@@ -3,7 +3,6 @@ import './home.scss';
 
 import React, { useEffect, useState } from 'react';
 
-import { ACTIONS } from '../../app_helpers';
 import PodcastCard from '../../components/podcastCards/PodcastCard';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { filterPodcast, getPodcastImage, getPodcasts } from './home_helpers';
@@ -14,8 +13,8 @@ const Home = ({ isLoading, dispatchIsLoading }) => {
 	const { getData, savePodcastsToLocalStorage } = useLocalStorage();
 
 	useEffect(() => {
-		const storedPodcasts = getData(dispatchIsLoading, 'podcasts');
-		console.log(storedPodcasts);
+		const storedPodcasts = getData(dispatchIsLoading);
+
 		if (storedPodcasts) {
 			setPodcasts(storedPodcasts);
 		} else {

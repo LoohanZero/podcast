@@ -7,7 +7,7 @@ import { ClipLoader } from 'react-spinners';
 import { initialState, loadingReducer } from './app_helpers';
 import Home from './pages/home/Home';
 import Podcast from './pages/podcast/Podcast';
-import PodcastLayout from './pages/poscastLayout/PodcastLayout';
+import PodcastLayout from './pages/podcastLayout/PodcastLayout';
 
 function App () {
 	const [ isLoading, dispatchIsLoading ] = useReducer(loadingReducer, initialState);

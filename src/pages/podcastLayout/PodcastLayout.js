@@ -11,14 +11,12 @@ import { getPodcastById } from './podcastLayout_helpers';
 const PodcastLayout = ({ isLoading, dispatchIsLoading }) => {
 	const { id } = useParams();
 	const [ podcast, setPodcast ] = useState(null);
-	const [ localPodcast, setLocalPodcast ] = useState(null);
-	const { getDataById } = useLocalStorage();
+	const { getDataById, saveDataByIdToLocalStorage } = useLocalStorage();
 
 	useEffect(() => {
 		if (id) {
-			getPodcastById(id, setPodcast, dispatchIsLoading);
-			const morePodcastInfo = getDataById(id, 'podcasts');
-			setLocalPodcast(morePodcastInfo);
+			const localPodcastInfo = getDataById(id);
+			getPodcastById(id, localPodcastInfo, setPodcast, dispatchIsLoading, saveDataByIdToLocalStorage);
 		}
 	}, [ id ]);
 
@@ -28,7 +26,7 @@ const PodcastLayout = ({ isLoading, dispatchIsLoading }) => {
 				author={podcast.artistName}
 				image={podcast.artworkUrl600}
 				name={podcast.collectionName}
-				description={localPodcast.summary.label}
+				description={podcast.summary?.label}
 			/>}
 			<Outlet context={{ url: podcast?.feedUrl, dispatchIsLoading }} />
 		</div>
