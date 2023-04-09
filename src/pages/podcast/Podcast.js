@@ -44,9 +44,11 @@ const Podcast = () => {
 									index={index}
 									key={episode.guid}
 									id={episode.guid}
+									podcastId={id}
 									title={episode.title}
 									duration={episode.duration}
 									date={episode.pubDate}
+									link={episode.link}
 								/>))}
 						</tbody>
 					</table>}

@@ -5,7 +5,7 @@ import { ACTIONS } from '../../app_helpers';
 
 const formatDataToObject = (episodeList, episode) => {
 	const episodeArray = [ ...episode ];
-	const objectEpisode = episodeArray.reduce((accum, value) => ({ ...accum, [value.localName]: value.innerHTML }));
+	const objectEpisode = episodeArray.reduce((accum, value) => ({ ...accum, [value.localName || value.nodeName]: value.innerHTML }), {});
 	return [ ...episodeList, objectEpisode ];
 };
 
@@ -21,10 +21,12 @@ const getPodcastByUrl = async (url, localPodcastInfo, setEpisodeList, dispatchIs
 		const response = await axios.get(`https://api.allorigins.win/raw?url=${url}`, { 'Content-Type': 'application/xml; charset=utf-8' });
 		const parser = new DOMParser();
 		const xml = parser.parseFromString(response.data, 'text/xml');
+		console.log(response.data);
 		const dataHttp = xml.getElementsByTagName('item');
 		const arrayData = [ ...dataHttp ];
 		const formattedEpisodeList = arrayData.map(item => item.children).reduce(formatDataToObject, []);
 		const mergedPodcast = { ...localPodcastInfo, episodes: formattedEpisodeList };
+		// console.log(arrayData);
 		setEpisodeList(formattedEpisodeList);
 		saveDataByIdToLocalStorage(mergedPodcast);
 	} catch (error) {
