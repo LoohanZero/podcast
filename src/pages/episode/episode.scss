@@ -1,0 +1,15 @@
+@import '../../styles/index.scss';
+
+.episode-container {
+    box-shadow: $default-box-shadow;
+    width: calc(100% - 250px);
+    padding: 1rem;
+}
+
+.episode-title {
+    padding-bottom: 1rem;
+}
+
+.episode-description {
+    font-style: italic;
+}

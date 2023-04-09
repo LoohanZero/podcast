@@ -5,6 +5,7 @@ import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import { ClipLoader } from 'react-spinners';
 
 import { initialState, loadingReducer } from './app_helpers';
+import Episode from './pages/episode/Episode';
 import Home from './pages/home/Home';
 import Podcast from './pages/podcast/Podcast';
 import PodcastLayout from './pages/podcastLayout/PodcastLayout';
@@ -30,7 +31,7 @@ function App () {
 							element={<PodcastLayout isLoading={somethingIsLoading} dispatchIsLoading={dispatchIsLoading} />}
 						>
 							<Route path=":id" element={<Podcast />} />
-							<Route path=":id/episode/:episodeId" element={<h2>Episode</h2>} />
+							<Route path=":id/episode/:episodeId" element={<Episode />} />
 						</Route>
 					</Routes>
 				</main>

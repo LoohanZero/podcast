@@ -18,7 +18,7 @@ const Podcast = () => {
 
 		if (!localPodcast?.episodes) {
 			const availableUrl = url || localPodcast?.feedUrl;
-			getPodcastByUrl(availableUrl, localPodcast, setEpisodeList, dispatchIsLoading, saveDataByIdToLocalStorage);
+			getPodcastByUrl(id, availableUrl, localPodcast, setEpisodeList, dispatchIsLoading, saveDataByIdToLocalStorage);
 		}
 	}, [ url ]);
 

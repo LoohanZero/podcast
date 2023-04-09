@@ -15,20 +15,18 @@ const formatDataToObject = (episodeList, episode) => {
 * @param {Function} dispatchIsLoading sets is Loading to false/true
 * @returns {VoidFunction}
 */
-const getPodcastByUrl = async (url, localPodcastInfo, setEpisodeList, dispatchIsLoading, saveDataByIdToLocalStorage) => {
+const getPodcastByUrl = async (id, url, localPodcastInfo, setEpisodeList, dispatchIsLoading, saveDataByIdToLocalStorage) => {
 	dispatchIsLoading({ type: ACTIONS.SET_LOADING_PARSER, payload: true });
 	try {
 		const response = await axios.get(`https://api.allorigins.win/raw?url=${url}`, { 'Content-Type': 'application/xml; charset=utf-8' });
 		const parser = new DOMParser();
 		const xml = parser.parseFromString(response.data, 'text/xml');
-		console.log(response.data);
 		const dataHttp = xml.getElementsByTagName('item');
 		const arrayData = [ ...dataHttp ];
 		const formattedEpisodeList = arrayData.map(item => item.children).reduce(formatDataToObject, []);
 		const mergedPodcast = { ...localPodcastInfo, episodes: formattedEpisodeList };
-		// console.log(arrayData);
 		setEpisodeList(formattedEpisodeList);
-		saveDataByIdToLocalStorage(mergedPodcast);
+		saveDataByIdToLocalStorage(mergedPodcast, id);
 	} catch (error) {
 		console.log(error);
 	} finally {
