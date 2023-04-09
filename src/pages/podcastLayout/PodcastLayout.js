@@ -24,6 +24,7 @@ const PodcastLayout = ({ isLoading, dispatchIsLoading }) => {
 		<div className="podcast-layout">
 			{!isLoading && podcast && <Aside
 				author={podcast.artistName}
+				id={id}
 				image={podcast.artworkUrl600}
 				name={podcast.collectionName}
 				description={podcast.summary?.label}
