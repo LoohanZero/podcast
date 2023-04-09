@@ -30,14 +30,17 @@ const useLocalStorage = () => {
 
 	/**
 	* Returns array of podcasts if there's any saved in the local storage, otherwise returns undefined
+	* @param {Function} dispatchIsLoading Function to toggle loading
+	* @param {String} name string with name to be saved locally
 	* @returns {Array | undefined}
 	*/
-	const getData = dispatchIsLoading => {
+	const getData = (dispatchIsLoading, name) => {
 		dispatchIsLoading({ type: ACTIONS.SET_LOADING_LOCAL_STORAGE, payload: true });
-		const storedPodcasts = localStorage.getItem('data');
+		const storedPodcasts = localStorage.getItem(name);
 		const parsedPodcasts = JSON.parse(storedPodcasts);
 		const expiredDate = checkTimeStorage(parsedPodcasts?.expDate);
 
+		dispatchIsLoading({ type: ACTIONS.SET_LOADING_LOCAL_STORAGE, payload: false });
 		return (storedPodcasts || !expiredDate) && parsedPodcasts?.podcasts;
 	};
 
@@ -45,8 +48,8 @@ const useLocalStorage = () => {
 	* Returns array of podcasts if there's any saved in the local storage, otherwise returns undefined
 	* @returns {Array | undefined}
 	*/
-	const getDataById = id => {
-		const storedPodcasts = localStorage.getItem('data');
+	const getDataById = (id, name) => {
+		const storedPodcasts = localStorage.getItem(name);
 		const parsedPodcasts = JSON.parse(storedPodcasts);
 		const podcast = parsedPodcasts.podcasts.filter(podcast => podcast.id.attributes['im:id'] === id);
 
@@ -56,15 +59,17 @@ const useLocalStorage = () => {
 	/**
 	* Saves array of podcasts and expiration date in localstorage
 	* @param {Array} podcasts array with podcasts objects
+	* @param {String} name string with name to be saved locally
 	* @returns {VoidFunction}
 	*/
-	const savePodcastsToLocalStorage = podcasts => {
+	const savePodcastsToLocalStorage = (podcasts, name) => {
 		const podcastsInfo = {
 			expDate: getExpirationDate(),
 			podcasts
 		};
-		localStorage.setItem('data', JSON.stringify(podcastsInfo));
+		localStorage.setItem(name, JSON.stringify(podcastsInfo));
 	};
+
 
 	return {
 		getData,

@@ -16,8 +16,8 @@ const PodcastLayout = ({ isLoading, dispatchIsLoading }) => {
 
 	useEffect(() => {
 		if (id) {
-			getPodcastById(id, podcast, setPodcast, dispatchIsLoading);
-			const morePodcastInfo = getDataById(id);
+			getPodcastById(id, setPodcast, dispatchIsLoading);
+			const morePodcastInfo = getDataById(id, 'podcasts');
 			setLocalPodcast(morePodcastInfo);
 		}
 	}, [ id ]);

@@ -16,7 +16,7 @@ const Podcast = () => {
 			getPodcastByUrl(url, setEpisodeList, dispatchIsLoading);
 		}
 	}, [ url ]);
-	console.log(episodeList);
+
 	return (
 		<div className="podcast-episodes-container">
 			{episodeList && (

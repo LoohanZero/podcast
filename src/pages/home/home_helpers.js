@@ -19,7 +19,7 @@ const getPodcasts = async (dispatchIsLoading, setPodcasts, savePodcastsToLocalSt
 		const response = await axios.get('https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json');
 		const data = response.data.feed.entry;
 		setPodcasts(data);
-		savePodcastsToLocalStorage(data);
+		savePodcastsToLocalStorage(data, 'podcasts');
 	} catch (error) {
 		console.log(error);
 	} finally {

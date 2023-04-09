@@ -8,7 +8,7 @@ import { ACTIONS } from '../../app_helpers';
 * @param {Function} savePodcastsToLocalStorage function that saves podcasts to local storage
 * @returns {VoidFunction}
 */
-const getPodcastById = async (id, podcast, setPodcast, dispatchIsLoading) => {
+const getPodcastById = async (id, setPodcast, dispatchIsLoading) => {
 	dispatchIsLoading({ type: ACTIONS.SET_LOADING_BACKEND_CALL, payload: true });
 
 	try {

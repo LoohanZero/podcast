@@ -14,14 +14,15 @@ const Home = ({ isLoading, dispatchIsLoading }) => {
 	const { getData, savePodcastsToLocalStorage } = useLocalStorage();
 
 	useEffect(() => {
-		const storedPodcasts = getData(dispatchIsLoading);
+		const storedPodcasts = getData(dispatchIsLoading, 'podcasts');
+		console.log(storedPodcasts);
 		if (storedPodcasts) {
 			setPodcasts(storedPodcasts);
-			dispatchIsLoading({ type: ACTIONS.SET_LOADING_LOCAL_STORAGE, payload: false });
 		} else {
 			getPodcasts(dispatchIsLoading, setPodcasts, savePodcastsToLocalStorage);
 		}
 	}, []);
+
 	return (
 		<div>
 			<div className="home-search-container">
