@@ -11,5 +11,10 @@
 }
 
 .episode-description {
-    font-style: italic;
+    p {
+        padding-bottom: 0.5rem;
+    }
+    a {
+        color: $secondary-color;
+    }
 }
