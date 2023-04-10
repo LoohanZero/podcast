@@ -1,0 +1,48 @@
+@import '../../styles/index.scss';
+
+.aside-podcast-container {
+    @include flex(column, flex-start, center);
+    width: 200px;
+    padding: 1rem;
+    box-shadow: $default-box-shadow;
+}
+
+.aside-podcast-image-container {
+    @include flex();
+    border-bottom: 1px solid $terciary-color;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.aside-podcast-image {
+    width: 90%;
+}
+
+.aside-podcast-title-container {
+    border-bottom: 1px solid $terciary-color;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.aside-podcast-title-name {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.aside-podcast-author {
+    font-style: italic;
+
+    span {
+        padding-right: 0.5rem;
+    }
+}
+
+.aside-podcast-description-container {
+    p:first-child {
+        font-weight: bold;
+        padding-bottom: 0.3rem;
+    }
+    p:last-child {
+        font-style: italic;
+    }
+}

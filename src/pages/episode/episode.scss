@@ -1,0 +1,27 @@
+@import '../../styles/index.scss';
+
+.episode-container {
+    box-shadow: $default-box-shadow;
+    width: calc(100% - 250px);
+    padding: 1rem;
+}
+
+.episode-title {
+    padding-bottom: 1rem;
+}
+
+.episode-description {
+    margin-bottom: 1rem;
+    
+    p {
+        padding-bottom: 0.5rem;
+    }
+    a {
+        color: $secondary-color;
+    }
+}
+
+.episode-audio {
+    width: 100%;
+}
+

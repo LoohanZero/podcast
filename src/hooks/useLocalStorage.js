@@ -3,7 +3,7 @@ const useLocalStorage = () => {
 
 	/**
 	* Returns true if data is expired
-	* @param {String} date podcasts loading flag
+	* @param {String} date string date saved in local storage
 	* @returns {Boolean}
 	*/
 	const checkTimeStorage = date => {
@@ -39,6 +39,19 @@ const useLocalStorage = () => {
 	};
 
 	/**
+	* Returns object of podcast if there's any saved in the local storage, otherwise returns undefined
+	* @param {String} id podcast id
+	* @returns {Array | undefined}
+	*/
+	const getDataById = id => {
+		const storedPodcasts = localStorage.getItem('data');
+		const parsedPodcasts = JSON.parse(storedPodcasts);
+		const podcast = parsedPodcasts.podcasts.filter(podcast => podcast.id.attributes['im:id'] === id);
+
+		return storedPodcasts && podcast[0];
+	};
+
+	/**
 	* Saves array of podcasts and expiration date in localstorage
 	* @param {Array} podcasts array with podcasts objects
 	* @returns {VoidFunction}
@@ -51,10 +64,29 @@ const useLocalStorage = () => {
 		localStorage.setItem('data', JSON.stringify(podcastsInfo));
 	};
 
+	/**
+	* Rewrites one podcast info by its ID and saves again array of podcasts and expiration date in localstorage
+	* @param {Object} mergedPodcast new podcast object
+	* @param {String} id podcast id
+	* @returns {VoidFunction}
+	*/
+	const saveDataByIdToLocalStorage = (mergedPodcasts, id) => {
+		const podcastList = getData();
+		const index = podcastList.findIndex(podcast => podcast.id.attributes['im:id'] === id);
+		podcastList.splice(index, 1, mergedPodcasts);
+
+		localStorage.setItem('data', JSON.stringify({
+			expDate: getExpirationDate(),
+			podcasts: podcastList
+		}));
+	};
+
 	return {
 		getData,
+		getDataById,
 		checkTimeStorage,
-		savePodcastsToLocalStorage
+		savePodcastsToLocalStorage,
+		saveDataByIdToLocalStorage
 	};
 };
 
