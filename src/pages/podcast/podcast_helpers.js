@@ -14,7 +14,7 @@ const getFormattedValue = value => {
 };
 
 /**
-* Transforms episode array into object and then returns array of objects 
+* Transforms episode array into object and then returns array of objects
 * @param {Array} episodeList List of episodes
 * @param {Object} episode object with episode information
 * @returns {Array}
