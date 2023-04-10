@@ -8,6 +8,9 @@ import { Duration } from 'luxon';
 */
 const getFormattedDuration = duration => {
 	try {
+		if (!duration) {
+			return 'N/A';
+		}
 		if (duration.includes(':')) {
 			return duration;
 		} else {
@@ -17,6 +20,7 @@ const getFormattedDuration = duration => {
 		}
 	} catch (error) {
 		console.log(error);
+		return duration;
 	}
 };
 
