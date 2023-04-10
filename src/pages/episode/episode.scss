@@ -11,6 +11,8 @@
 }
 
 .episode-description {
+    margin-bottom: 1rem;
+    
     p {
         padding-bottom: 0.5rem;
     }
@@ -18,3 +20,8 @@
         color: $secondary-color;
     }
 }
+
+.episode-audio {
+    width: 100%;
+}
+

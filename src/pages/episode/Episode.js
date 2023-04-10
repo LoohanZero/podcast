@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
 import './episode.scss';
 
@@ -17,7 +18,7 @@ const Episode = () => {
 		if (podcastId) {
 			const podcast = getDataById(podcastId);
 			const currentEpisode = getEpisodeById(podcast.episodes, episodeId);
-			setEpisode(currentEpisode);
+			!currentEpisode ? console.log('No episode found') : setEpisode(currentEpisode);
 		}
 	}, [ podcastId ]);
 
@@ -28,6 +29,12 @@ const Episode = () => {
 				className="episode-description"
 				dangerouslySetInnerHTML={{ __html: episode?.encoded }} ></p>
 
+			<audio controls className="episode-audio">
+				<source src={episode?.link} type="audio/ogg" />
+				<source src={episode?.link} type="audio/mpeg" />
+				<source src={episode?.link} type="audio/mp3" />
+			Your browser does not support the audio element.
+			</audio>
 		</div>
 	);
 };

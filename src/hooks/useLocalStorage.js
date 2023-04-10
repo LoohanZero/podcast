@@ -3,7 +3,7 @@ const useLocalStorage = () => {
 
 	/**
 	* Returns true if data is expired
-	* @param {String} date podcasts loading flag
+	* @param {String} date string date saved in local storage
 	* @returns {Boolean}
 	*/
 	const checkTimeStorage = date => {
@@ -28,8 +28,6 @@ const useLocalStorage = () => {
 
 	/**
 	* Returns array of podcasts if there's any saved in the local storage, otherwise returns undefined
-	* @param {Function} dispatchIsLoading Function to toggle loading
-	* @param {String} name string with name to be saved locally
 	* @returns {Array | undefined}
 	*/
 	const getData = () => {
@@ -41,7 +39,8 @@ const useLocalStorage = () => {
 	};
 
 	/**
-	* Returns array of podcasts if there's any saved in the local storage, otherwise returns undefined
+	* Returns object of podcast if there's any saved in the local storage, otherwise returns undefined
+	* @param {String} id podcast id
 	* @returns {Array | undefined}
 	*/
 	const getDataById = id => {
@@ -55,7 +54,6 @@ const useLocalStorage = () => {
 	/**
 	* Saves array of podcasts and expiration date in localstorage
 	* @param {Array} podcasts array with podcasts objects
-	* @param {String} name string with name to be saved locally
 	* @returns {VoidFunction}
 	*/
 	const savePodcastsToLocalStorage = podcasts => {
@@ -67,9 +65,9 @@ const useLocalStorage = () => {
 	};
 
 	/**
-	* Saves array of podcasts and expiration date in localstorage
-	* @param {Array} podcasts array with podcasts objects
-	* @param {String} name string with name to be saved locally
+	* Rewrites one podcast info by its ID and saves again array of podcasts and expiration date in localstorage
+	* @param {Object} mergedPodcast new podcast object
+	* @param {String} id podcast id
 	* @returns {VoidFunction}
 	*/
 	const saveDataByIdToLocalStorage = (mergedPodcasts, id) => {
