@@ -1,0 +1,23 @@
+@import '../../styles/index.scss';
+
+.podcast-episodes-container {
+    width: calc(100% - 250px);
+}
+
+.podcast-episodes-amount {
+    line-height: 50px;
+    padding-left: 30px;
+    box-shadow: $default-box-shadow;
+    margin-bottom: 1rem;
+}
+
+.podcast-episodes-table {
+    width: 100%;
+    padding: 0 30px;
+    box-shadow: $default-box-shadow;
+}
+
+th, td  { 
+    height: 50px;
+    border-bottom: 1px solid $terciary-color;
+}
