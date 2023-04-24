@@ -6,10 +6,10 @@ import { useOutletContext } from 'react-router-dom';
 
 import EpisodeCard from '../../components/episodeCard/EpisodeCard';
 import useLocalStorage from '../../hooks/useLocalStorage';
-import { getPodcastByUrl } from './podcast_helpers';
+import { getEpisodesByPodcastId } from './podcast_helpers';
 
 const Podcast = () => {
-	const { id, isLoading, url, dispatchIsLoading } = useOutletContext();
+	const { id, isLoading, dispatchIsLoading } = useOutletContext();
 	const [ episodeList, setEpisodeList ] = useState(null);
 	const { getDataById, saveDataByIdToLocalStorage } = useLocalStorage();
 
@@ -17,12 +17,11 @@ const Podcast = () => {
 		const localPodcast = getDataById(id);
 
 		if (!localPodcast?.episodes) {
-			const availableUrl = url || localPodcast?.feedUrl;
-			getPodcastByUrl(id, availableUrl, localPodcast, setEpisodeList, dispatchIsLoading, saveDataByIdToLocalStorage);
+			getEpisodesByPodcastId(id, localPodcast, setEpisodeList, dispatchIsLoading, saveDataByIdToLocalStorage);
 		} else {
 			setEpisodeList(localPodcast.episodes);
 		}
-	}, [ url ]);
+	}, [ id ]);
 	return (
 		<div className="podcast-episodes-container">
 			{!isLoading && episodeList && (
@@ -43,13 +42,13 @@ const Podcast = () => {
 							{episodeList.map((episode, index) => (
 								<EpisodeCard
 									index={index}
-									key={episode.guid}
-									id={episode.guid}
+									key={episode.episodeGuid}
+									id={episode.episodeGuid}
 									podcastId={id}
-									title={episode.title}
-									duration={episode.duration}
-									date={episode.pubDate}
-									link={episode.link}
+									title={episode.trackName}
+									duration={episode.trackTimeMillis}
+									date={episode.releaseDate}
+									link={episode.trackViewUrl}
 								/>))}
 						</tbody>
 					</table>}

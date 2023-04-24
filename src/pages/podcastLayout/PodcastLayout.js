@@ -31,7 +31,7 @@ const PodcastLayout = ({ isLoading, dispatchIsLoading }) => {
 					name={podcast.collectionName}
 					description={podcast.summary?.label}
 				/>
-				<Outlet context={{ url: podcast?.feedUrl, dispatchIsLoading, id, isLoading }} />
+				<Outlet context={{ dispatchIsLoading, id, isLoading }} />
 			</>}
 
 		</div>
