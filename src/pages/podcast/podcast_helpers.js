@@ -2,7 +2,6 @@
 import axios from 'axios';
 
 import { ACTIONS } from '../../app_helpers';
-import { CORS_URL } from '../../utils/globalConstants';
 
 /**
 * @param {String} id podcastId
@@ -18,7 +17,6 @@ const getEpisodesByPodcastId = async (id, localPodcastInfo, setEpisodeList, disp
 		const response = await axios.get(`${`https://itunes.apple.com/lookup?id=${id}&media=podcast&entity=podcastEpisode&limit=2000`}`);
 		const data = response.data.results;
 		data.shift();
-		console.log(data);
 		const mergedPodcast = { ...localPodcastInfo, episodes: data };
 		setEpisodeList(data);
 		saveDataByIdToLocalStorage(mergedPodcast, id);

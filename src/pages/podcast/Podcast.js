@@ -42,8 +42,8 @@ const Podcast = () => {
 							{episodeList.map((episode, index) => (
 								<EpisodeCard
 									index={index}
-									key={episode.trackId}
-									id={episode.trackId}
+									key={episode.episodeGuid}
+									id={episode.episodeGuid}
 									podcastId={id}
 									title={episode.trackName}
 									duration={episode.trackTimeMillis}
