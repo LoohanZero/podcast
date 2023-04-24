@@ -17,6 +17,7 @@ const Episode = () => {
 	useEffect(() => {
 		if (podcastId) {
 			const podcast = getDataById(podcastId);
+			console.log(podcast);
 			const currentEpisode = getEpisodeById(podcast.episodes, episodeId);
 			!currentEpisode ? console.log('No episode found') : setEpisode(currentEpisode);
 		}
