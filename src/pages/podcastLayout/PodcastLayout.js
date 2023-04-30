@@ -33,7 +33,6 @@ const PodcastLayout = ({ isLoading, dispatchIsLoading }) => {
 				/>
 				<Outlet context={{ dispatchIsLoading, id, isLoading }} />
 			</>}
-
 		</div>
 	);
 };
