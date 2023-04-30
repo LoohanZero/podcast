@@ -35,7 +35,7 @@ const Episode = () => {
 			</p>
 
 			{episode?.episodeUrl &&
-			<audio controls className="episode-audio" ref={audioRef}>
+			<audio controls className="episode-audio" ref={audioRef} aria-label='audio'>
 				<source src={episode.episodeUrl} type="audio/ogg" />
 				<source src={episode.episodeUrl} type="audio/mpeg" />
 				<source src={episode.episodeUrl} type="audio/mp3" />
