@@ -3,7 +3,7 @@ import './home.scss';
 
 import React, { useEffect, useState } from 'react';
 
-import PodcastCard from '../../components/podcastCards/PodcastCard';
+import PodcastCard from '../../components/podcastCard/PodcastCard';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { filterPodcast, getPodcastImage, getPodcasts } from './home_helpers';
 

@@ -2,6 +2,7 @@
 import axios from 'axios';
 
 import { ACTIONS } from '../../app_helpers';
+import noImageFound from '../../images/R.jpg';
 
 // ----------------------- VARIABLES --------------------------------
 const SIZE_IMAGE = 170;
@@ -34,7 +35,7 @@ const getPodcasts = async (dispatchIsLoading, setPodcasts, savePodcastsToLocalSt
 */
 const getPodcastImage = images => {
 	const imageObject = images.filter(image => Number(image.attributes.height) === SIZE_IMAGE)[0];
-	return imageObject.label;
+	return imageObject?.label ?? noImageFound;
 };
 
 /**
