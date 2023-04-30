@@ -3,7 +3,7 @@ import './home.scss';
 
 import React, { useEffect, useState } from 'react';
 
-import PodcastCard from '../../components/podcastCards/PodcastCard';
+import PodcastCard from '../../components/podcastCard/PodcastCard';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { filterPodcast, getPodcastImage, getPodcasts } from './home_helpers';
 
@@ -30,6 +30,7 @@ const Home = ({ isLoading, dispatchIsLoading }) => {
 				</p>
 				<input
 					className="home-search-input"
+					aria-label='home-search-field'
 					type="text"
 					value={searchValue}
 					placeholder="Filter podcasts..."

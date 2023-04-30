@@ -21,7 +21,7 @@ function App () {
 					<Link to="/">
 						<h1 className="app-title">Podcaster</h1>
 					</Link>
-					{somethingIsLoading && <ClipLoader color="#2877bd" size={25}/>}
+					{somethingIsLoading && <ClipLoader color="#2877bd" size={25} aria-label="loader"/>}
 				</header>
 				<main>
 					<Routes>
