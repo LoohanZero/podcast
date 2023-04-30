@@ -67,7 +67,7 @@ describe('Test Aside', () => {
 		});
 	});
 
-    it('should redirect to correct url when image link clicked', async () => {
+	it('should redirect to correct url when image link clicked', async () => {
 		const router = createMemoryRouter([
 			{
 				path: '/podcast',

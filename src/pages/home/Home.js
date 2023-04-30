@@ -30,6 +30,7 @@ const Home = ({ isLoading, dispatchIsLoading }) => {
 				</p>
 				<input
 					className="home-search-input"
+					aria-label='home-search-field'
 					type="text"
 					value={searchValue}
 					placeholder="Filter podcasts..."
