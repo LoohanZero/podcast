@@ -40,7 +40,7 @@ describe('Test EpisodeCard', () => {
         expect(screen.getByRole('row')).toHaveTextContent(`${episode.trackName}2/5/20052:36`);
 	});
 
-	it('should redirect to correct url when "For the sake of revenge" link clicked', async () => {
+	it('should redirect to correct url when "Shamandalie" link clicked', async () => {
 		const router = createMemoryRouter([
 			{
 				path: '/podcast/:id',
