@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import axios from 'axios';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
@@ -82,10 +82,8 @@ describe('Test Home', () => {
 		axios.get.mockResolvedValue(data);
 		render(<Home isLoading={false} dispatchIsLoading={dispatchIsLoading} />, { wrapper: BrowserRouter });
 
-		await waitFor(() => {
-			expect(screen.queryByText('2')).toBeInTheDocument();
-			expect(screen.queryAllByRole('link').length).toBe(podcasts.length);
-		});
+		expect(await screen.findByText('2')).toBeInTheDocument();
+		expect(await screen.queryAllByRole('link').length).toEqual(podcasts.length);
 	});
 
 	it('should show one podcast when "sonata" is searched', async () => {
@@ -93,47 +91,43 @@ describe('Test Home', () => {
 		render(<Home isLoading={false} dispatchIsLoading={dispatchIsLoading} />, { wrapper: BrowserRouter });
 		const text = 'sonata';
 
-		await waitFor(() => {
-			const input = screen.getByLabelText('home-search-field');
+		const input = await screen.getByLabelText('home-search-field');
 
-			fireEvent.change(input, { target: { value: text } });
-			expect(input.value).toBe(text);
-			expect(screen.queryAllByRole('link').length).toBe(1);
-			expect(screen.queryByText(text, { exact: false })).toBeInTheDocument();
-			expect(screen.queryByText('Temptation', { exact: false })).not.toBeInTheDocument();
-			expect(screen.queryByText('1')).toBeInTheDocument();
-		});
+		fireEvent.change(input, { target: { value: text } });
+
+		expect(await input.value).toBe(text);
+		expect(await screen.queryAllByRole('link').length).toBe(1);
+		expect(await screen.findByText(text, { exact: false })).toBeInTheDocument();
+		expect(await screen.queryByText('Temptation', { exact: false })).not.toBeInTheDocument();
+		expect(await screen.findByText('1')).toBeInTheDocument();
 	});
 
 	it('should show one podcast when "temptation" is searched', async () => {
 		axios.get.mockResolvedValue(data);
 		render(<Home isLoading={false} dispatchIsLoading={dispatchIsLoading} />, { wrapper: BrowserRouter });
 		const text = 'temptation';
-		await waitFor(() => {
-			const input = screen.getByLabelText('home-search-field');
+		const input = await screen.getByLabelText('home-search-field');
 
-			fireEvent.change(input, { target: { value: text } });
-			expect(input.value).toBe(text);
-			expect(screen.queryAllByRole('link').length).toBe(1);
-			expect(screen.queryByText(text, { exact: false })).toBeInTheDocument();
-			expect(screen.queryByText('Sonata', { exact: false })).not.toBeInTheDocument();
-			expect(screen.queryByText('1')).toBeInTheDocument();
-		});
+		fireEvent.change(input, { target: { value: text } });
+		expect(await input.value).toBe(text);
+		expect(await screen.queryAllByRole('link').length).toBe(1);
+		expect(await screen.findByText(text, { exact: false })).toBeInTheDocument();
+		expect(await screen.queryByText('Sonata', { exact: false })).not.toBeInTheDocument();
+		expect(await screen.findByText('1')).toBeInTheDocument();
 	});
 
 	it('should show no podcast when "epica" is searched', async () => {
 		axios.get.mockResolvedValue(data);
 		render(<Home isLoading={false} dispatchIsLoading={dispatchIsLoading} />, { wrapper: BrowserRouter });
 		const text = 'epica';
-		await waitFor(() => {
-			const input = screen.getByLabelText('home-search-field');
 
-			fireEvent.change(input, { target: { value: text } });
-			expect(input.value).toBe(text);
-			expect(screen.queryAllByRole('link').length).toBe(0);
-			expect(screen.queryByText('Temptation', { exact: false })).not.toBeInTheDocument();
-			expect(screen.queryByText('Sonata', { exact: false })).not.toBeInTheDocument();
-			expect(screen.queryByText('0')).toBeInTheDocument();
-		});
+		const input = await screen.getByLabelText('home-search-field');
+
+		fireEvent.change(input, { target: { value: text } });
+		expect(await input.value).toBe(text);
+		expect(await screen.queryAllByRole('link').length).toBe(0);
+		expect(await screen.queryByText('Temptation', { exact: false })).not.toBeInTheDocument();
+		expect(await screen.queryByText('Sonata', { exact: false })).not.toBeInTheDocument();
+		expect(await screen.findByText('0')).toBeInTheDocument();
 	});
 });

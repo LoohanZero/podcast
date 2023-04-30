@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import axios from 'axios';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
@@ -50,10 +50,8 @@ describe('Test PodcastLayout', () => {
 
 		render(<PodcastLayout isLoading={false} dispatchIsLoading={jest.fn()}/>, { wrapper: BrowserRouter });
 
-		await waitFor(() => {
-			expect(screen.getByRole('heading')).toHaveTextContent(podcast.collectionName);
-			expect(screen.getByText(podcast.summary.label)).toBeInTheDocument();
-		});
+		expect(await screen.findByRole('heading')).toHaveTextContent(podcast.collectionName);
+		expect(await screen.findByText(podcast.summary.label)).toBeInTheDocument();
 	});
 	it('should not show anything if no podcasts are found', async () => {
 		jest.spyOn(Storage.prototype, 'getItem').mockReturnValue(JSON.stringify({ podcasts: [ ] }));
@@ -61,9 +59,7 @@ describe('Test PodcastLayout', () => {
 
 		render(<PodcastLayout isLoading={false} dispatchIsLoading={jest.fn()}/>, { wrapper: BrowserRouter });
 
-		await waitFor(() => {
-			expect(screen.queryByRole('heading')).not.toBeInTheDocument();
-			expect(screen.queryByText(podcast.summary.label)).not.toBeInTheDocument();
-		});
+		expect(await screen.queryByRole('heading')).not.toBeInTheDocument();
+		expect(await screen.queryByText(podcast.summary.label)).not.toBeInTheDocument();
 	});
 });
