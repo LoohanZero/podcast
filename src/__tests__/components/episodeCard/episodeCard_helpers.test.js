@@ -1,6 +1,6 @@
 import { getFormattedDuration } from "../../../components/episodeCard/episodeCard_helpers";
 
-describe('getFormattedDuration', () => {
+describe('Test getFormattedDuration', () => {
     it('should return duration string with format MM:SS when duration in milliseconds is passed as argument', () => {
         const duration = 2016000;
         const stringDuration = getFormattedDuration(duration);
