@@ -1,14 +1,14 @@
 import axios from 'axios';
+
 import { getPodcastById } from '../../../pages/podcastLayout/podcastLayout_helpers';
 
 jest.mock('axios');
 
-
 describe('Test getPodcastById', () => {
-    const data = { results: [{podcastId: '23423423', info: 'someMoreInfo'}]};
-    const episodes = { data: { contents:  JSON.stringify(data)}}
-    const id = '99999'
-    const localPodcastInfo = { id: '23423423', localInfo: 'invent'};
+	const data = { results: [ { podcastId: '23423423', info: 'someMoreInfo' } ] };
+	const episodes = { data: { contents: JSON.stringify(data) } };
+	const id = '99999';
+	const localPodcastInfo = { id: '23423423', localInfo: 'invent' };
 	const dispatchIsLoading = jest.fn();
 	const setPodcast = jest.fn();
 	const saveDataByIdToLocalStorage = jest.fn();
@@ -16,7 +16,7 @@ describe('Test getPodcastById', () => {
 	it('should call setPodcast, dispatchIsLoading and saveDataByIdToLocalStorage when correct arguments are passed and backend call response is 200', async () => {
 		axios.get.mockResolvedValue(episodes);
 		await getPodcastById(id, localPodcastInfo, setPodcast, dispatchIsLoading, saveDataByIdToLocalStorage);
-        const mergedPodcasts = {...data.results[0], ...localPodcastInfo };
+		const mergedPodcasts = { ...data.results[0], ...localPodcastInfo };
 
 		expect(dispatchIsLoading).toBeCalledTimes(2);
 		expect(setPodcast).toHaveBeenCalledWith(mergedPodcasts);
